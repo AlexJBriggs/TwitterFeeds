@@ -283,7 +283,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
         // get settings
         var Unsuitable = $('.UnsuitSettings:checkbox:checked')
-        alert(Unsuitable)
+        alert(Unsuitable[0].value)
         var UnsuitableWhen = "$feature.EST_SETTING == ''"
         for (i = 0; i < Unsuitable.length; i++) {
           UnsuitableWhen + " || $feature.EST_SETTING == '" + Unsuitable[i].value + "'"
