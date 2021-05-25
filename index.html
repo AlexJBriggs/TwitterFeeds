@@ -283,23 +283,37 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
         // get settings
         var Unsuitable = $('.UnsuitSettings:checkbox:checked')
-        alert(Unsuitable[0].value)
+
         var UnsuitableWhen = "$feature.EST_SETTING == ''"
         for (i = 0; i < Unsuitable.length; i++) {
-          UnsuitableWhen + " || $feature.EST_SETTING == '" + Unsuitable[i].value + "'"
+          UnsuitableWhen = UnsuitableWhen + " || $feature.EST_SETTING == '" + Unsuitable[i].value + "'"
         }
-        alert(UnsuitableWhen)
+
+        // get settings
+        var High = $('.UnsuitSettings:checkbox:checked')
+
+        var HighWhen = "$feature.EST_SETTING == ''"
+        for (i = 0; i < Unsuitable.length; i++) {
+          HighWhen = HighWhen + " || $feature.EST_SETTING == '" + Unsuitable[i].value + "'"
+        }
+
+        // get settings
+        var Moderate = $('.UnsuitSettings:checkbox:checked')
+
+        var ModerateWhen = "$feature.EST_SETTING == ''"
+        for (i = 0; i < Unsuitable.length; i++) {
+          ModerateWhen = ModerateWhen + " || $feature.EST_SETTING == '" + Unsuitable[i].value + "'"
+        }
 
         newArcade = `return when(${UnsuitableWhen},'Unsuitable',
                       when($feature.EST_CHANNELWIDTH >= ${ChannelSlider.values[1]},'High',
                       when($feature.EST_GRADIENT >=${GradientSlider.values[1]},'High',
-                      when($feature.EST_SETTING== "Urban",'High',
+                      when(${HighWhen},'High',
                       when($feature.EST_DS_DISTANCE <= ${DSDistSlider.values[0]},'High',
                       when($feature.EST_CHANNELWIDTH >= ${ChannelSlider.values[0]},'Moderate',
                       when($feature.EST_GRADIENT >=${GradientSlider.values[1]},'Moderate',
-                      when($feature.EST_SETTING== "Rural",'Moderate',
-                      when($feature.EST_SETTING== "Rural with trees",'Moderate',
-                      when($feature.EST_DS_DISTANCE <= ${DSDistSlider.values[1]},"Moderate",'Low'))))))))))`
+                      when(${ModerateWhen},'Moderate',
+                      when($feature.EST_DS_DISTANCE <= ${DSDistSlider.values[1]},"Moderate",'Low')))))))))`
 
         newRenderer.valueExpression = newArcade
         //alert(newArcade)
@@ -330,33 +344,33 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
       <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Unsuitable watercourse type" value
         checked="true" /><label>Unsuitable watercourse type</label><br />
       <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Urban" value
-        checked="true" /><label>Urban</label><br />
+        checked="false" /><label>Urban</label><br />
       <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Rural" value
-        checked="true" /><label>Rural</label><br />
+        checked="false" /><label>Rural</label><br />
       <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Rural with trees" value
-        checked="true" /><label>Rural with
+        checked="false" /><label>Rural with
         trees</label>
 
     </div>
     <div id="comboContainer1" class="HighSettings"><a>High Risk Settings</a>
 
       <input type="checkbox" class="settingCheckbox HighSettings" value="Unsuitable watercourse type" value
-        checked="true" /><label>Unsuitable watercourse type</label><br />
+        checked="false" /><label>Unsuitable watercourse type</label><br />
       <input type="checkbox" class="settingCheckbox HighSettings" value="Urban" value
         checked="true" /><label>Urban</label><br />
       <input type="checkbox" class="settingCheckbox HighSettings" value="Rural" value
-        checked="true" /><label>Rural</label><br />
+        checked="false" /><label>Rural</label><br />
       <input type="checkbox" class="settingCheckbox HighSettings" value="Rural with trees" value
-        checked="true" /><label>Rural with
+        checked="false" /><label>Rural with
         trees</label>
 
     </div>
     <div id="comboContainer1" class="ModerateSettings"><a>Moderate Risk Settings</a>
 
       <input type="checkbox" class="settingCheckbox HighSettings" value="Unsuitable watercourse type" value
-        checked="true" /><label>Unsuitable watercourse type</label><br />
+        checked="false" /><label>Unsuitable watercourse type</label><br />
       <input type="checkbox" class="settingCheckbox HighSettings" value="Urban" value
-        checked="true" /><label>Urban</label><br />
+        checked="false" /><label>Urban</label><br />
       <input type="checkbox" class="settingCheckbox HighSettings" value="Rural" value
         checked="true" /><label>Rural</label><br />
       <input type="checkbox" class="settingCheckbox HighSettings" value="Rural with trees" value
