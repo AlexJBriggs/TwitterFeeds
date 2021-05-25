@@ -283,8 +283,9 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
         // get settings
         var Unsuitable = $('.UnsuitSettings:checkbox:checked')
+        alert(Unsuitable)
         var UnsuitableWhen = "$feature.EST_SETTING == ''"
-        for (i = 0; i < Unsuitable.length; i ++){
+        for (i = 0; i < Unsuitable.length; i++) {
           UnsuitableWhen + " || $feature.EST_SETTING == '" + Unsuitable[i].value + "'"
         }
         alert(UnsuitableWhen)
@@ -328,9 +329,12 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
       <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Unsuitable watercourse type" value
         checked="true" /><label>Unsuitable watercourse type</label><br />
-      <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Urban" value checked="true" /><label>Urban</label><br />
-      <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Rural" value checked="true" /><label>Rural</label><br />
-      <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Rural with trees" value checked="true" /><label>Rural with
+      <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Urban" value
+        checked="true" /><label>Urban</label><br />
+      <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Rural" value
+        checked="true" /><label>Rural</label><br />
+      <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Rural with trees" value
+        checked="true" /><label>Rural with
         trees</label>
 
     </div>
@@ -338,9 +342,12 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
       <input type="checkbox" class="settingCheckbox HighSettings" value="Unsuitable watercourse type" value
         checked="true" /><label>Unsuitable watercourse type</label><br />
-      <input type="checkbox" class="settingCheckbox HighSettings" value="Urban" value checked="true" /><label>Urban</label><br />
-      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural" value checked="true" /><label>Rural</label><br />
-      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural with trees" value checked="true" /><label>Rural with
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Urban" value
+        checked="true" /><label>Urban</label><br />
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural" value
+        checked="true" /><label>Rural</label><br />
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural with trees" value
+        checked="true" /><label>Rural with
         trees</label>
 
     </div>
@@ -348,9 +355,12 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
       <input type="checkbox" class="settingCheckbox HighSettings" value="Unsuitable watercourse type" value
         checked="true" /><label>Unsuitable watercourse type</label><br />
-      <input type="checkbox" class="settingCheckbox HighSettings" value="Urban" value checked="true" /><label>Urban</label><br />
-      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural" value checked="true" /><label>Rural</label><br />
-      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural with trees" value checked="true" /><label>Rural with
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Urban" value
+        checked="true" /><label>Urban</label><br />
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural" value
+        checked="true" /><label>Rural</label><br />
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural with trees" value
+        checked="true" /><label>Rural with
         trees</label>
     </div>
   </div>
