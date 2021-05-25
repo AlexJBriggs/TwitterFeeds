@@ -238,6 +238,12 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
         container: "DSDistSlider"
       });
 
+      const UnsuitableComboBox = new ComboBoxInput({
+        noValueOptionLabel: "Unknown",
+        showNoValueOption: true,
+        container: "UnsuitableComboBox"
+      });
+
 
       //do on sliders here :
       ChannelSlider.on(["thumb-change", "thumb-drag"], function (event) {
@@ -283,6 +289,18 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
 <body>
   <div id="viewDiv"></div>
+  <div id="ComboBoxes">
+
+    <div id="combocontainer1" class="esri-widget"><a>Channel Width (m)</a>
+      <div id="UnsuitableComboBox" class="sliderDiv"></div>
+    </div>
+    <div id="combocontainer1" class="esri-widget"><a>Channel Width (m)</a>
+      <div id="UnsuitableComboBox" class="sliderDiv"></div>
+    </div>
+    <div id="combocontainer1" class="esri-widget"><a>Channel Width (m)</a>
+      <div id="UnsuitableComboBox" class="sliderDiv"></div>
+    </div>
+  </div>
   <div id="sliderContainer1" class="esri-widget"><a>Channel Width (m)</a>
     <div id="ChannelSlider" class="sliderDiv"></div>
   </div>
