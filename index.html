@@ -242,15 +242,14 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
       //do on sliders here :
       ChannelSlider.on(["thumb-change", "thumb-drag"], function (event) {
 
-        updateRenderer(Channelslider.values[1], Channelslider.values[0], GradientSlider.values[1], GradientSlider.values[0], DSDistSlider.values[1], DSDistSlider.values[0]);
+        updateRenderer();
 
       });
       GradientSlider.on(["thumb-change", "thumb-drag"], function (event) {
-        updateRenderer(ChannelSlider.values[0], event.value, DSDistSlider.values[0]);
-
+        updateRenderer();
       });
       DSDistSlider.on(["thumb-change", "thumb-drag"], function (event) {
-        updateRenderer(ChannelSlider.values[0], GradientSlider.values[0], event.value);
+        updateRenderer();
 
       });
 
@@ -260,18 +259,18 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
 
 
-      function updateRenderer(channelUpper,channelLower,gradientUpper, gradientLower, dsUpper, dsLower) {
+      function updateRenderer() {
         newRenderer = LWS_Data.renderer.clone();
         newArcade = `return when($feature.EST_SETTING == 'Unsuitable watercourse type','Unsuitable',
-                      when($feature.EST_CHANNELWIDTH >= ${channelUpper},'High',
-                      when($feature.EST_GRADIENT >=${gradientUpper},'High',
+                      when($feature.EST_CHANNELWIDTH >= ${ChannelSlider.values[1]},'High',
+                      when($feature.EST_GRADIENT >=${GradientSlider.values[1]},'High',
                       when($feature.EST_SETTING== "Urban",'High',
-                      when($feature.EST_DS_DISTANCE <= ${dsLower},'High',
-                      when($feature.EST_CHANNELWIDTH >= ${channelLower},'Moderate',
-                      when($feature.EST_GRADIENT >=${gradientLower},'Moderate',
+                      when($feature.EST_DS_DISTANCE <= ${DSDistSlider.values[0]},'High',
+                      when($feature.EST_CHANNELWIDTH >= ${Channelslider.values[0]},'Moderate',
+                      when($feature.EST_GRADIENT >=${GradientSlider.values[1]},'Moderate',
                       when($feature.EST_SETTING== "Rural",'Moderate',
                       when($feature.EST_SETTING== "Rural with trees",'Moderate',
-                      when($feature.EST_DS_DISTANCE <= ${gradientUpper},"Moderate",'Low'))))))))))`
+                      when($feature.EST_DS_DISTANCE <= ${DSDistSlider.values[1]},"Moderate",'Low'))))))))))`
         
         newRenderer.valueExpression = newArcade
         //alert(newArcade)
