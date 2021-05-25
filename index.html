@@ -59,6 +59,7 @@
 
   <link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/themes/light/main.css">
   <script src="https://js.arcgis.com/4.15/"></script>
+  <script src="jquery-3.5.1.min.js"></script>
 
   <script>
     require([
@@ -67,8 +68,7 @@
       "esri/layers/FeatureLayer",
       "esri/renderers/UniqueValueRenderer",
       "esri/widgets/Slider",
-      "esri/widgets/Legend", "esri/identity/OAuthInfo", "esri/identity/IdentityManager",
-      "esri/form/elements/inputs/ComboBoxInput"
+      "esri/widgets/Legend", "esri/identity/OAuthInfo", "esri/identity/IdentityManager"
     ], function (Map, MapView, FeatureLayer, UniqueValueRenderer, Slider, Legend) {
 
       var map = new Map({
@@ -239,11 +239,6 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
         container: "DSDistSlider"
       });
 
-      const UnsuitableComboBox = new ComboBoxInput({
-        noValueOptionLabel: "Unknown",
-        showNoValueOption: true,
-        container: "UnsuitableComboBox"
-      });
 
 
       //do on sliders here :
@@ -259,6 +254,11 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
         updateRenderer();
 
       });
+
+
+      $(".settingCheckbox").click(function() { 
+        alert("checkbox clicked!")
+        /* do something */ })
 
       // When the user changes the slider's value,
       // change the renderer and histogram to reflect
@@ -292,14 +292,35 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
   <div id="viewDiv"></div>
   <div id="ComboBoxes">
 
-    <div id="combocontainer1" class="esri-widget"><a>Channel Width (m)</a>
-      <div id="UnsuitableComboBox" class="sliderDiv"></div>
+    <div id="combocontainer1" class="esri-widget"><a>Unsuitable Settings</a>
+      <div id="UnsuitableComboBox">
+        <input type="checkbox" class="settingCheckbox" value="Unsuitable watercourse type" value
+          checked="true" /><label>Unsuitable watercourse type</label><br />
+        <input type="checkbox" class="settingCheckbox" value="Urban" value checked="true" /><label>Urban</label><br />
+        <input type="checkbox" class="settingCheckbox" value="Rural" value checked="true" /><label>Rural</label><br />
+        <input type="checkbox" class="settingCheckbox" value="Rural with trees" value checked="true" /><label>Rural with
+          trees</label>
+      </div>
     </div>
-    <div id="combocontainer1" class="esri-widget"><a>Channel Width (m)</a>
-      <div id="UnsuitableComboBox" class="sliderDiv"></div>
+    <div id="combocontainer1" class="esri-widget"><a>High Risk Settings</a>
+      <div id="UnsuitableComboBox" class="sliderDiv">
+        <input type="checkbox" class="settingCheckbox" value="Unsuitable watercourse type" value
+          checked="true" /><label>Unsuitable watercourse type</label><br />
+        <input type="checkbox" class="settingCheckbox" value="Urban" value checked="true" /><label>Urban</label><br />
+        <input type="checkbox" class="settingCheckbox" value="Rural" value checked="true" /><label>Rural</label><br />
+        <input type="checkbox" class="settingCheckbox" value="Rural with trees" value checked="true" /><label>Rural with
+          trees</label>
+      </div>
     </div>
-    <div id="combocontainer1" class="esri-widget"><a>Channel Width (m)</a>
-      <div id="UnsuitableComboBox" class="sliderDiv"></div>
+    <div id="combocontainer1" class="esri-widget"><a>Moderate Risk Settings</a>
+      <div id="UnsuitableComboBox" class="sliderDiv">
+        <input type="checkbox" class="settingCheckbox" value="Unsuitable watercourse type" value
+          checked="true" /><label>Unsuitable watercourse type</label><br />
+        <input type="checkbox" class="settingCheckbox" value="Urban" value checked="true" /><label>Urban</label><br />
+        <input type="checkbox" class="settingCheckbox" value="Rural" value checked="true" /><label>Rural</label><br />
+        <input type="checkbox" class="settingCheckbox" value="Rural with trees" value checked="true" /><label>Rural with
+          trees</label>
+      </div>
     </div>
   </div>
   <div id="sliderContainer1" class="esri-widget"><a>Channel Width (m)</a>
