@@ -34,7 +34,7 @@
 
     #sliderContainer1 {
       position: absolute;
-      bottom: 200;
+      bottom: 300;
       height: 100px;
       width: 100%;
       text-align: center;
@@ -42,13 +42,21 @@
 
     #sliderContainer2 {
       position: absolute;
-      bottom: 100;
+      bottom: 200;
       height: 100px;
       width: 100%;
       text-align: center;
     }
 
     #sliderContainer3 {
+      position: absolute;
+      bottom: 100;
+      height: 100px;
+      width: 100%;
+      text-align: center;
+    }
+
+    #comboContainer3 {
       position: absolute;
       bottom: 0;
       height: 100px;
@@ -256,9 +264,10 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
       });
 
 
-      $(".settingCheckbox").click(function() { 
+      $(".settingCheckbox").click(function () {
         alert("checkbox clicked!")
-        /* do something */ })
+        /* do something */
+      })
 
       // When the user changes the slider's value,
       // change the renderer and histogram to reflect
@@ -290,7 +299,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
 <body>
   <div id="viewDiv"></div>
-  
+
   <div id="sliderContainer1" class="esri-widget"><a>Channel Width (m)</a>
     <div id="ChannelSlider" class="sliderDiv"></div>
   </div>
@@ -301,7 +310,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
     <div id="DSDistSlider" class="sliderDiv"></div>
   </div>
 
-  <div id="ComboBoxes">
+  <div id="comboContainer3">
 
     <div id="combocontainer1" class="esri-widget"><a>Unsuitable Settings</a>
       <div id="UnsuitableComboBox">
@@ -334,7 +343,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
       </div>
     </div>
   </div>
-  
+
 </body>
 
 </html>
