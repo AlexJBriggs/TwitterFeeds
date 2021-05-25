@@ -271,7 +271,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
                       when($feature.EST_SETTING== "Rural",'Moderate',
                       when($feature.EST_SETTING== "Rural with trees",'Moderate',
                       when($feature.EST_DS_DISTANCE <= ${DSDistSlider.values[1]},"Moderate",'Low'))))))))))`
-        
+
         newRenderer.valueExpression = newArcade
         //alert(newArcade)
         LWS_Data.renderer = newRenderer;
@@ -289,7 +289,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
   <div id="sliderContainer2" class="esri-widget"><a>Channel gradient (degrees)</a>
     <div id="GradientSlider" class="sliderDiv"></div>
   </div>
-  <div id="sliderContainer3" class="esri-widget"><a>Downstream distance to nearest channel crossing</a>
+  <div id="sliderContainer3" class="esri-widget"><a>Downstream distance to nearest channel crossing (m)</a>
     <div id="DSDistSlider" class="sliderDiv"></div>
   </div>
 </body>
