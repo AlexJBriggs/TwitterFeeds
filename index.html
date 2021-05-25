@@ -161,8 +161,8 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
 
         //*** ADD ***//
-        outFields: ["GRID_ID", "Suitability_shoreline", "Nearest_corals_m", "Nearest_mangrove_m",
-          "Proximity2humanpop"
+        outFields: ["EST_OVERALL", "EST_CHANNELWIDTH", "EST_DS_DISTANCE", "EST_GRADIENT",
+          "EST_PUBLIC", "EST_SETTING"
         ],
 
         //*** ADD ***//
@@ -241,6 +241,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
       //do on sliders here :
       ChannelSlider.on(["thumb-change", "thumb-drag"], function (event) {
+        alert(event.value)
         updateRenderer(event.value, GradientSlider.values[0], DSDistSlider.values[0]);
 
       });
@@ -259,30 +260,19 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
 
 
-      function updateRenderer(shoreline, coral, mangrove) {
+      function updateRenderer(channelUpper,channelLower,gradientUpper, gradientLower, dsUpper, dsLower) {
         newRenderer = LWS_Data.renderer.clone();
-        newArcade = `if($feature.Suitability_shoreline == -1 || $feature.Suitability_coral == -1 || $feature.Suitability_mangrove == -1 ||  $feature.Suitability_humanpop == -1 ){
-    return -1
-    }
-    
-else{
-    //always has suitability of 2 if got here, at least pop  suitable 
-    var suitability = 1;
-    if($feature.Nearest_shoreline_m  <${shoreline}){
-      //within shoreline suitability 
-       suitability+=1;
-    }
-    if($feature.Nearest_corals_m > ${coral}){
-        //within coral suitability 
-        suitability+=1;
-    }
-    if($feature.Nearest_mangrove_m > ${mangrove}){
-        //within mangrove suitability 
-        suitability+=1;
-    }
-    return suitability;
-}`
-
+        newArcade = `return when($feature.EST_SETTING == 'Unsuitable watercourse type','Unsuitable',
+                      when($feature.EST_CHANNELWIDTH >= ${channelUpper},'High',
+                      when($feature.EST_GRADIENT >=${gradientUpper},'High',
+                      when($feature.EST_SETTING== "Urban",'High',
+                      when($feature.EST_DS_DISTANCE <= ${dsLower},'High',
+                      when($feature.EST_CHANNELWIDTH >= ${channelLower},'Moderate',
+                      when($feature.EST_GRADIENT >=${gradientLower},'Moderate',
+                      when($feature.EST_SETTING== "Rural",'Moderate',
+                      when($feature.EST_SETTING== "Rural with trees",'Moderate',
+                      when($feature.EST_DS_DISTANCE <= ${gradientUpper},"Moderate",'Low'))))))))))`
+        
         newRenderer.valueExpression = newArcade
         //alert(newArcade)
         LWS_Data.renderer = newRenderer;
