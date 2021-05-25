@@ -77,7 +77,7 @@
       var view = new MapView({
         container: "viewDiv",
         map: map,
-        center: [54.296249, 25.276987],
+        center: [53.79648, -1.54785],
         zoom: 8
       });
 
@@ -126,7 +126,7 @@ else{
           }
         }, {
           // All features with value of "East" will be green
-          value: "High risk",
+          value: "High",
           label: "High Risk",
           symbol: {
             type: "simple-line", // autocasts as new SimpleFillSymbol()
@@ -138,7 +138,7 @@ else{
           }
         }, {
           // All features with value of "South" will be red
-          value: "Moderate risk",
+          value: "Moderate",
           label: "Moderate Risk",
           symbol: {
             type: "simple-line", // autocasts as new SimpleFillSymbol()
@@ -150,7 +150,7 @@ else{
           }
         }, {
           // All features with value of "West" will be yellow
-          value: "Low Risk",
+          value: "Low",
           label: "Low Risk",
           symbol: {
             type: "simple-line", // autocasts as new SimpleFillSymbol()
@@ -178,7 +178,7 @@ else{
 
         //*** ADD ***//
         popupTemplate: { // Enable a popup
-          title: "Leaky Woody Structure Potential", // Show attribute value
+          title: "Leaky Woody Structure Potential : {EST_OVERALL}", // Show attribute value
           content: `Chennel Width : {EST_CHANNELWIDTH} <br />
 					Nearest Downstream :{EST_DS_DISTANCE} m <br />
 					Channel gradient : {EST_GRADIENT} deg <br />
