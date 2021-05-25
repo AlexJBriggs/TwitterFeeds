@@ -83,32 +83,21 @@
 
 
 
-      var arcade = `if($feature.Suitability_shoreline == -1 || $feature.Suitability_coral == -1 || $feature.Suitability_mangrove == -1 ||  $feature.Suitability_humanpop == -1 ){
-    return -1
-    }
-    
-else{
-    //always has suitability of 2 if got here, at least pop  suitable 
-    var suitability = 1;
-    if($feature.Nearest_shoreline_m  < 100){
-      //within shoreline suitability 
-       suitability+=1;
-    }
-    if($feature.Nearest_corals_m > 1000){
-        //within coral suitability 
-        suitability+=1;
-    }
-    if($feature.Nearest_mangrove_m > 1000){
-        //within mangrove suitability 
-        suitability+=1;
-    }
-    return suitability;
-}`
+      var arcade = `return when($feature.EST_SETTING == 'Unsuitable watercourse type','Unsuitable',
+when($feature.EST_CHANNELWIDTH >= 5,'High',
+when($feature.EST_GRADIENT >=8,'High',
+when($feature.EST_SETTING== "Urban",'High',
+when($feature.EST_DS_DISTANCE <= 500,'High',
+when($feature.EST_CHANNELWIDTH >= 3,'Moderate',
+when($feature.EST_GRADIENT >=4,'Moderate',
+when($feature.EST_SETTING== "Rural",'Moderate',
+when($feature.EST_SETTING== "Rural with trees",'Moderate',
+when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
       //alert (arcade)	
       var suitabilityRender = {
         type: "unique-value", // autocasts as new UniqueValueRenderer()
-        field: "EST_OVERALL",
+        valueExpression: arcade,
         defaultSymbol: {
           type: "simple-line"
         }, // autocasts as new SimpleFillSymbol()
