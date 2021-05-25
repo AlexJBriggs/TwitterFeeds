@@ -241,8 +241,8 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
       //do on sliders here :
       ChannelSlider.on(["thumb-change", "thumb-drag"], function (event) {
-        alert(Channelslider.values)
-        updateRenderer(event.value, GradientSlider.values[0], DSDistSlider.values[0]);
+
+        updateRenderer(Channelslider.values[1], Channelslider.values[0], GradientSlider.values[1], GradientSlider.values[0], DSDistSlider.values[1], DSDistSlider.values[0]);
 
       });
       GradientSlider.on(["thumb-change", "thumb-drag"], function (event) {
