@@ -77,7 +77,7 @@
       var view = new MapView({
         container: "viewDiv",
         map: map,
-        center: [-1.54785,53.79648],
+        center: [-1.54785, 53.79648],
         zoom: 8
       });
 
@@ -197,59 +197,59 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
 
 
-      const ShorelineSlider = new Slider({
-        min: 100,
-        max: 6000,
-        values: [100],
+      const ChannelSlider = new Slider({
+        min: 0,
+        max: 15,
+        values: [3, 5],
         visibleElements: {
           labels: true,
           rangeLabels: true
         },
         labelInputsEnabled: true,
         precision: 0,
-        steps: 500,
-        container: "ShorelineSlider"
+        steps: 1,
+        container: "ChannelSlider"
       });
 
-      const CoralSlider = new Slider({
-        min: 1000,
-        max: 25000,
-        values: [1000],
+      const GradientSlider = new Slider({
+        min: 0,
+        max: 15,
+        values: [4, 8],
         visibleElements: {
           labels: true,
           rangeLabels: true
         },
         labelInputsEnabled: true,
         precision: 0,
-        steps: 500,
-        container: "CoralSlider"
+        steps: 1,
+        container: "GradientSlider"
       });
-      const MangroveSlider = new Slider({
-        min: 1000,
-        max: 50000,
-        values: [1000],
+      const DSDistSlider = new Slider({
+        min: 0,
+        max: 3000,
+        values: [500, 1000],
         visibleElements: {
           labels: true,
           rangeLabels: true
         },
         labelInputsEnabled: true,
         precision: 0,
-        steps: 500,
-        container: "MangroveSlider"
+        steps: 25,
+        container: "DSDistSlider"
       });
 
 
       //do on sliders here :
-      ShorelineSlider.on(["thumb-change", "thumb-drag"], function (event) {
-        updateRenderer(event.value, CoralSlider.values[0], MangroveSlider.values[0]);
+      ChannelSlider.on(["thumb-change", "thumb-drag"], function (event) {
+        updateRenderer(event.value, GradientSlider.values[0], DSDistSlider.values[0]);
 
       });
-      CoralSlider.on(["thumb-change", "thumb-drag"], function (event) {
-        updateRenderer(ShorelineSlider.values[0], event.value, MangroveSlider.values[0]);
+      GradientSlider.on(["thumb-change", "thumb-drag"], function (event) {
+        updateRenderer(ChannelSlider.values[0], event.value, DSDistSlider.values[0]);
 
       });
-      MangroveSlider.on(["thumb-change", "thumb-drag"], function (event) {
-        updateRenderer(ShorelineSlider.values[0], CoralSlider.values[0], event.value);
+      DSDistSlider.on(["thumb-change", "thumb-drag"], function (event) {
+        updateRenderer(ChannelSlider.values[0], GradientSlider.values[0], event.value);
 
       });
 
@@ -295,13 +295,13 @@ else{
 <body>
   <div id="viewDiv"></div>
   <div id="sliderContainer1" class="esri-widget"><a>Suitable distance from shoreline (m) </a>
-    <div id="ShorelineSlider" class="sliderDiv"></div>
+    <div id="ChannelSlider" class="sliderDiv"></div>
   </div>
   <div id="sliderContainer2" class="esri-widget"><a>Minimum distance from Coral (m)</a>
-    <div id="CoralSlider" class="sliderDiv"></div>
+    <div id="GradientSlider" class="sliderDiv"></div>
   </div>
   <div id="sliderContainer3" class="esri-widget"><a>Minimum distance from Mangrove (m)</a>
-    <div id="MangroveSlider" class="sliderDiv"></div>
+    <div id="DSDistSlider" class="sliderDiv"></div>
   </div>
 </body>
 
