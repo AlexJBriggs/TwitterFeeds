@@ -61,10 +61,12 @@
       bottom: 0;
       height: 100px;
       width: 100%;
+      display: table;
     }
 
     #comboContainer1 {
-      display: table;
+      float: left;
+      width: 33.33%;
     }
   </style>
 
@@ -339,7 +341,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
   <div id="comboContainer">
 
-    <div id="comboContainer1" class="UnsuitableSettings"><a>Unsuitable Settings</a>
+    <div id="comboContainer1" class="UnsuitableSettings"><a>Unsuitable Settings</a><br />
 
       <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Unsuitable watercourse type" value
         checked="true" /><label>Unsuitable watercourse type</label><br />
@@ -352,7 +354,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
         trees</label>
 
     </div>
-    <div id="comboContainer1" class="HighSettings"><a>High Risk Settings</a>
+    <div id="comboContainer1" class="HighSettings"><a>High Risk Settings</a><br />
 
       <input type="checkbox" class="settingCheckbox HighSettings" value="Unsuitable watercourse type" value
         checked="false" /><label>Unsuitable watercourse type</label><br />
@@ -365,7 +367,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
         trees</label>
 
     </div>
-    <div id="comboContainer1" class="ModerateSettings"><a>Moderate Risk Settings</a>
+    <div id="comboContainer1" class="ModerateSettings"><a>Moderate Risk Settings</a><br />
 
       <input type="checkbox" class="settingCheckbox HighSettings" value="Unsuitable watercourse type" value
         checked="false" /><label>Unsuitable watercourse type</label><br />
