@@ -266,7 +266,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
                       when($feature.EST_GRADIENT >=${GradientSlider.values[1]},'High',
                       when($feature.EST_SETTING== "Urban",'High',
                       when($feature.EST_DS_DISTANCE <= ${DSDistSlider.values[0]},'High',
-                      when($feature.EST_CHANNELWIDTH >= ${Channelslider.values[0]},'Moderate',
+                      when($feature.EST_CHANNELWIDTH >= ${ChannelSlider.values[0]},'Moderate',
                       when($feature.EST_GRADIENT >=${GradientSlider.values[1]},'Moderate',
                       when($feature.EST_SETTING== "Rural",'Moderate',
                       when($feature.EST_SETTING== "Rural with trees",'Moderate',
