@@ -61,8 +61,8 @@
       bottom: 0;
       height: 100px;
       width: 100%;
-      text-align: center;
     }
+
     #comboContainer1 {
       display: table;
     }
@@ -268,7 +268,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
 
       $(".settingCheckbox").click(function () {
-        alert("checkbox clicked!")
+        updateRenderer()
         /* do something */
       })
 
@@ -280,7 +280,16 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
       function updateRenderer() {
         newRenderer = LWS_Data.renderer.clone();
-        newArcade = `return when($feature.EST_SETTING == 'Unsuitable watercourse type','Unsuitable',
+
+        // get settings
+        var Unsuitable = $('.UnsuitSettings:checkbox:checked')
+        var UnsuitableWhen = "$feature.EST_SETTING == ''"
+        for (i = 0; i < Unsuitable.length; i ++){
+          UnsuitableWhen + " || $feature.EST_SETTING == '" + Unsuitable[i].value + "'"
+        }
+        alert(UnsuitableWhen)
+
+        newArcade = `return when(${UnsuitableWhen},'Unsuitable',
                       when($feature.EST_CHANNELWIDTH >= ${ChannelSlider.values[1]},'High',
                       when($feature.EST_GRADIENT >=${GradientSlider.values[1]},'High',
                       when($feature.EST_SETTING== "Urban",'High',
@@ -315,33 +324,33 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
 
   <div id="comboContainer">
 
-    <div id="comboContainer1" class="esri-widget"><a>Unsuitable Settings</a>
+    <div id="comboContainer1" class="UnsuitableSettings"><a>Unsuitable Settings</a>
 
-      <input type="checkbox" class="settingCheckbox" value="Unsuitable watercourse type" value
+      <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Unsuitable watercourse type" value
         checked="true" /><label>Unsuitable watercourse type</label><br />
-      <input type="checkbox" class="settingCheckbox" value="Urban" value checked="true" /><label>Urban</label><br />
-      <input type="checkbox" class="settingCheckbox" value="Rural" value checked="true" /><label>Rural</label><br />
-      <input type="checkbox" class="settingCheckbox" value="Rural with trees" value checked="true" /><label>Rural with
+      <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Urban" value checked="true" /><label>Urban</label><br />
+      <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Rural" value checked="true" /><label>Rural</label><br />
+      <input type="checkbox" class="settingCheckbox UnsuitSettings" value="Rural with trees" value checked="true" /><label>Rural with
         trees</label>
 
     </div>
-    <div id="comboContainer1" class="esri-widget"><a>High Risk Settings</a>
+    <div id="comboContainer1" class="HighSettings"><a>High Risk Settings</a>
 
-      <input type="checkbox" class="settingCheckbox" value="Unsuitable watercourse type" value
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Unsuitable watercourse type" value
         checked="true" /><label>Unsuitable watercourse type</label><br />
-      <input type="checkbox" class="settingCheckbox" value="Urban" value checked="true" /><label>Urban</label><br />
-      <input type="checkbox" class="settingCheckbox" value="Rural" value checked="true" /><label>Rural</label><br />
-      <input type="checkbox" class="settingCheckbox" value="Rural with trees" value checked="true" /><label>Rural with
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Urban" value checked="true" /><label>Urban</label><br />
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural" value checked="true" /><label>Rural</label><br />
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural with trees" value checked="true" /><label>Rural with
         trees</label>
 
     </div>
-    <div id="comboContainer1" class="esri-widget"><a>Moderate Risk Settings</a>
+    <div id="comboContainer1" class="ModerateSettings"><a>Moderate Risk Settings</a>
 
-      <input type="checkbox" class="settingCheckbox" value="Unsuitable watercourse type" value
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Unsuitable watercourse type" value
         checked="true" /><label>Unsuitable watercourse type</label><br />
-      <input type="checkbox" class="settingCheckbox" value="Urban" value checked="true" /><label>Urban</label><br />
-      <input type="checkbox" class="settingCheckbox" value="Rural" value checked="true" /><label>Rural</label><br />
-      <input type="checkbox" class="settingCheckbox" value="Rural with trees" value checked="true" /><label>Rural with
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Urban" value checked="true" /><label>Urban</label><br />
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural" value checked="true" /><label>Rural</label><br />
+      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural with trees" value checked="true" /><label>Rural with
         trees</label>
     </div>
   </div>
