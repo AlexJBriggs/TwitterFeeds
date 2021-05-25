@@ -1,1 +1,319 @@
-<iframe src="https://player.vimeo.com/video/1095549913" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>ArcGIS JavaScript Tutorials: Create a Starter App</title>
+  <style>
+    #containerDiv {
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0;
+    }
+
+    .sliderDiv {
+      height: 100px;
+    }
+
+
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    #viewDiv {
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: 0;
+      bottom: 300px;
+    }
+
+    #sliderContainer1 {
+      position: absolute;
+      bottom: 200;
+      height: 100px;
+      width: 100%;
+      text-align: center;
+    }
+
+    #sliderContainer2 {
+      position: absolute;
+      bottom: 100;
+      height: 100px;
+      width: 100%;
+      text-align: center;
+    }
+
+    #sliderContainer3 {
+      position: absolute;
+      bottom: 0;
+      height: 100px;
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.15/"></script>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/FeatureLayer",
+      "esri/renderers/UniqueValueRenderer",
+      "esri/widgets/Slider",
+      "esri/widgets/Legend", "esri/identity/OAuthInfo", "esri/identity/IdentityManager"
+    ], function (Map, MapView, FeatureLayer, UniqueValueRenderer, Slider, Legend) {
+
+      var map = new Map({
+        basemap: "topo-vector"
+      });
+
+      var view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [54.296249, 25.276987],
+        zoom: 8
+      });
+
+
+
+      var arcade = `if($feature.Suitability_shoreline == -1 || $feature.Suitability_coral == -1 || $feature.Suitability_mangrove == -1 ||  $feature.Suitability_humanpop == -1 ){
+    return -1
+    }
+    
+else{
+    //always has suitability of 2 if got here, at least pop  suitable 
+    var suitability = 1;
+    if($feature.Nearest_shoreline_m  < 100){
+      //within shoreline suitability 
+       suitability+=1;
+    }
+    if($feature.Nearest_corals_m > 1000){
+        //within coral suitability 
+        suitability+=1;
+    }
+    if($feature.Nearest_mangrove_m > 1000){
+        //within mangrove suitability 
+        suitability+=1;
+    }
+    return suitability;
+}`
+
+      //alert (arcade)	
+      var suitabilityRender = {
+        type: "unique-value", // autocasts as new UniqueValueRenderer()
+        field: "EST_OVERALL",
+        defaultSymbol: {
+          type: "simple-fill"
+        }, // autocasts as new SimpleFillSymbol()
+        uniqueValueInfos: [{
+          // All features with value of "North" will be blue
+          label: "Unsuitable",
+          value: "Unsuitable",
+          symbol: {
+            type: "simple-fill", // autocasts as new SimpleFillSymbol()
+            color: [225, 225, 225, 0.5],
+            outline: { // autocasts as new SimpleLineSymbol()
+              color: "gray",
+              width: 0.5
+            }
+          }
+        }, {
+          // All features with value of "East" will be green
+          value: "High risk",
+          label: "High Risk",
+          symbol: {
+            type: "simple-fill", // autocasts as new SimpleFillSymbol()
+            color: [211, 255, 190, 0.5],
+            outline: { // autocasts as new SimpleLineSymbol()
+              color: "gray",
+              width: 0.5
+            }
+          }
+        }, {
+          // All features with value of "South" will be red
+          value: "Moderate risk",
+          label: "Moderate Risk",
+          symbol: {
+            type: "simple-fill", // autocasts as new SimpleFillSymbol()
+            color: [170, 255, 0, 0.5],
+            outline: { // autocasts as new SimpleLineSymbol()
+              color: "gray",
+              width: 0.5
+            }
+          }
+        }, {
+          // All features with value of "West" will be yellow
+          value: "Low Risk",
+          label: "Low Risk",
+          symbol: {
+            type: "simple-fill", // autocasts as new SimpleFillSymbol()
+            color: [112, 168, 0, 0.5],
+            outline: { // autocasts as new SimpleLineSymbol()
+              color: "gray",
+              width: 0.5
+            }
+          }
+        }]
+      };
+
+      // UAE feature layer (Polys)
+      var LWS_Data = new FeatureLayer({
+        url: "https://services-eu1.arcgis.com/hIJELfBR9xHtrn5f/arcgis/rest/services/HFS_LeakyBarrierOpportunity/FeatureServer/0",
+        renderer: suitabilityRender,
+
+
+
+
+        //*** ADD ***//
+        outFields: ["GRID_ID", "Suitability_shoreline", "Nearest_corals_m", "Nearest_mangrove_m",
+          "Proximity2humanpop"
+        ],
+
+        //*** ADD ***//
+        popupTemplate: { // Enable a popup
+          title: "Leaky Woody Structure Potential", // Show attribute value
+          content: `Chennel Width : {EST_CHANNELWIDTH} <br />
+					Nearest Downstream :{EST_DS_DISTANCE} m <br />
+					Channel gradient : {EST_GRADIENT} m <br />
+					Nearest Public : {EST_PUBLIC} m <br />
+          Setting : EST_SETTING` // Display text in pop-up
+        }
+      });
+      map.add(LWS_Data);
+
+      view.when(function () {
+        // get the first layer in the collection of operational layers in the WebMap
+        // when the resources in the MapView have loaded.
+        var featureLayer = map.layers.getItemAt(0);
+
+        var legend = new Legend({
+          view: view,
+          layerInfos: [{
+            layer: featureLayer,
+            title: "LWS Risk"
+          }]
+        });
+
+        // Add widget to the bottom right corner of the view
+        view.ui.add(legend, "bottom-right");
+      });
+
+
+
+
+      const ShorelineSlider = new Slider({
+        min: 100,
+        max: 6000,
+        values: [100],
+        visibleElements: {
+          labels: true,
+          rangeLabels: true
+        },
+        labelInputsEnabled: true,
+        precision: 0,
+        steps: 500,
+        container: "ShorelineSlider"
+      });
+
+      const CoralSlider = new Slider({
+        min: 1000,
+        max: 25000,
+        values: [1000],
+        visibleElements: {
+          labels: true,
+          rangeLabels: true
+        },
+        labelInputsEnabled: true,
+        precision: 0,
+        steps: 500,
+        container: "CoralSlider"
+      });
+      const MangroveSlider = new Slider({
+        min: 1000,
+        max: 50000,
+        values: [1000],
+        visibleElements: {
+          labels: true,
+          rangeLabels: true
+        },
+        labelInputsEnabled: true,
+        precision: 0,
+        steps: 500,
+        container: "MangroveSlider"
+      });
+
+
+      //do on sliders here :
+      ShorelineSlider.on(["thumb-change", "thumb-drag"], function (event) {
+        updateRenderer(event.value, CoralSlider.values[0], MangroveSlider.values[0]);
+
+      });
+      CoralSlider.on(["thumb-change", "thumb-drag"], function (event) {
+        updateRenderer(ShorelineSlider.values[0], event.value, MangroveSlider.values[0]);
+
+      });
+      MangroveSlider.on(["thumb-change", "thumb-drag"], function (event) {
+        updateRenderer(ShorelineSlider.values[0], CoralSlider.values[0], event.value);
+
+      });
+
+      // When the user changes the slider's value,
+      // change the renderer and histogram to reflect
+      // data corresponding to the year indicated on the slider
+
+
+
+      function updateRenderer(shoreline, coral, mangrove) {
+        newRenderer = LWS_Data.renderer.clone();
+        newArcade = `if($feature.Suitability_shoreline == -1 || $feature.Suitability_coral == -1 || $feature.Suitability_mangrove == -1 ||  $feature.Suitability_humanpop == -1 ){
+    return -1
+    }
+    
+else{
+    //always has suitability of 2 if got here, at least pop  suitable 
+    var suitability = 1;
+    if($feature.Nearest_shoreline_m  <${shoreline}){
+      //within shoreline suitability 
+       suitability+=1;
+    }
+    if($feature.Nearest_corals_m > ${coral}){
+        //within coral suitability 
+        suitability+=1;
+    }
+    if($feature.Nearest_mangrove_m > ${mangrove}){
+        //within mangrove suitability 
+        suitability+=1;
+    }
+    return suitability;
+}`
+
+        newRenderer.valueExpression = newArcade
+        //alert(newArcade)
+        LWS_Data.renderer = newRenderer;
+      }
+
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+  <div id="sliderContainer1" class="esri-widget"><a>Suitable distance from shoreline (m) </a>
+    <div id="ShorelineSlider" class="sliderDiv"></div>
+  </div>
+  <div id="sliderContainer2" class="esri-widget"><a>Minimum distance from Coral (m)</a>
+    <div id="CoralSlider" class="sliderDiv"></div>
+  </div>
+  <div id="sliderContainer3" class="esri-widget"><a>Minimum distance from Mangrove (m)</a>
+    <div id="MangroveSlider" class="sliderDiv"></div>
+  </div>
+</body>
+
+</html>
