@@ -313,7 +313,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
                       when(${HighWhen},'High',
                       when($feature.EST_DS_DISTANCE <= ${DSDistSlider.values[0]},'High',
                       when($feature.EST_CHANNELWIDTH >= ${ChannelSlider.values[0]},'Moderate',
-                      when($feature.EST_GRADIENT >=${GradientSlider.values[1]},'Moderate',
+                      when($feature.EST_GRADIENT >=${GradientSlider.values[0]},'Moderate',
                       when(${ModerateWhen},'Moderate',
                       when($feature.EST_DS_DISTANCE <= ${DSDistSlider.values[1]},"Moderate",'Low')))))))))`
 
