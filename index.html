@@ -292,7 +292,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
         }
 
         // get settings
-        var High = $('.UnsuitSettings:checkbox:checked')
+        var High = $('.HighSettings:checkbox:checked')
 
         var HighWhen = "$feature.EST_SETTING == ''"
         for (i = 0; i < Unsuitable.length; i++) {
@@ -300,7 +300,7 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
         }
 
         // get settings
-        var Moderate = $('.UnsuitSettings:checkbox:checked')
+        var Moderate = $('.ModerateSettings:checkbox:checked')
 
         var ModerateWhen = "$feature.EST_SETTING == ''"
         for (i = 0; i < Unsuitable.length; i++) {
@@ -364,12 +364,12 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
     </div>
     <div id="comboContainer1" class="ModerateSettings"><a>Moderate Risk Settings</a><br />
 
-      <input type="checkbox" class="settingCheckbox HighSettings" value="Unsuitable watercourse type"
+      <input type="checkbox" class="settingCheckbox ModerateSettings" value="Unsuitable watercourse type"
         value /><label>Unsuitable watercourse type</label><br />
-      <input type="checkbox" class="settingCheckbox HighSettings" value="Urban" value /><label>Urban</label><br />
-      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural" value
+      <input type="checkbox" class="settingCheckbox ModerateSettings" value="Urban" value /><label>Urban</label><br />
+      <input type="checkbox" class="settingCheckbox ModerateSettings" value="Rural" value
         checked="true" /><label>Rural</label><br />
-      <input type="checkbox" class="settingCheckbox HighSettings" value="Rural with trees" value
+      <input type="checkbox" class="settingCheckbox ModerateSettings" value="Rural with trees" value
         checked="true" /><label>Rural with
         trees</label>
     </div>
