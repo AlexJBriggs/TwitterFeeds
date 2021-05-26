@@ -295,16 +295,16 @@ when($feature.EST_DS_DISTANCE <= 1000,"Moderate",'Low'))))))))))`
         var High = $('.HighSettings:checkbox:checked')
 
         var HighWhen = "$feature.EST_SETTING == ''"
-        for (i = 0; i < Unsuitable.length; i++) {
-          HighWhen = HighWhen + " || $feature.EST_SETTING == '" + Unsuitable[i].value + "'"
+        for (i = 0; i < High.length; i++) {
+          HighWhen = HighWhen + " || $feature.EST_SETTING == '" + High[i].value + "'"
         }
 
         // get settings
         var Moderate = $('.ModerateSettings:checkbox:checked')
 
         var ModerateWhen = "$feature.EST_SETTING == ''"
-        for (i = 0; i < Unsuitable.length; i++) {
-          ModerateWhen = ModerateWhen + " || $feature.EST_SETTING == '" + Unsuitable[i].value + "'"
+        for (i = 0; i < Moderate.length; i++) {
+          ModerateWhen = ModerateWhen + " || $feature.EST_SETTING == '" + Moderate[i].value + "'"
         }
 
         newArcade = `return when(${UnsuitableWhen},'Unsuitable',
